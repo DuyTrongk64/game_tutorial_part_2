@@ -3,6 +3,9 @@
 void Player::initVasriables()
 {
 	this->movementSpeed = 20.f;
+	this->hpMax = 10;
+	this->hp = hp;
+	this->points = 0;
 }
 
 void Player::initShape()
@@ -22,6 +25,11 @@ Player::Player(float x, float y)
 Player::~Player()
 {
 	
+}
+
+const sf::RectangleShape& Player::getShape() const
+{
+	return this->shape;
 }
 
 void Player::updateInput()
