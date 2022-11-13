@@ -1,10 +1,6 @@
 #pragma once
 
-#include<SFML/Audio.hpp>
-#include<SFML/Graphics.hpp>
-#include<SFML/Network.hpp>
-#include<SFML/System.hpp>
-#include<SFML/Window.hpp>
+#include"SwagBall.h"
 
 class Player
 {
@@ -20,7 +16,8 @@ public:
 	virtual ~Player();
 
 	void updateInput();
-	void update(sf::RenderTarget* target);
+	void updateWindowBoundsCollision(const sf::RenderTarget* target);
+	void update(const sf::RenderTarget* target);
 	void render(sf::RenderTarget*target);
 };
 

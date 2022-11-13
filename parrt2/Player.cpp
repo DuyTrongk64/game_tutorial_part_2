@@ -2,7 +2,7 @@
 
 void Player::initVasriables()
 {
-	this->movementSpeed = 5.f;
+	this->movementSpeed = 20.f;
 }
 
 void Player::initShape()
@@ -49,11 +49,30 @@ void Player::updateInput()
 	}
 }
 
-void Player::update(sf::RenderTarget *target)
+void Player::updateWindowBoundsCollision(const sf::RenderTarget* target)
 {
-	//Window bound collision
-	
+	//Left
+	//sf::FloatRect this->shape.getGlobalBounds() = this->shape.getGlobalBounds();
+	if (this->shape.getGlobalBounds().left <= 0.f)
+		this->shape.setPosition(0.f, this->shape.getGlobalBounds().top);
+	//Right
+	else if (this->shape.getGlobalBounds().left + this->shape.getGlobalBounds().width >= target->getSize().x)
+		this->shape.setPosition(target->getSize().x- this->shape.getGlobalBounds().width, this->shape.getGlobalBounds().top);
+	//Top
+	if (this->shape.getGlobalBounds().top <= 0.f)
+		this->shape.setPosition( this->shape.getGlobalBounds().left, 0.f);
+	//Bot
+	else if (this->shape.getGlobalBounds().top + this->shape.getGlobalBounds().height >= target->getSize().y)
+		this->shape.setPosition(this->shape.getGlobalBounds().left, target->getSize().y - this->shape.getGlobalBounds().height);
+}
+
+void Player::update(const sf::RenderTarget *target)
+{
 	this->updateInput();
+
+	//Window bound collision
+	this->updateWindowBoundsCollision(target);
+
 }
 
 void Player::render(sf::RenderTarget* target)

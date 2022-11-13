@@ -4,8 +4,10 @@
 #include<vector>
 #include<ctime>
 #include<sstream>
+#include<vector>
 
 #include"Player.h"
+#include "SwagBall.h"
 
 
 class Game
@@ -17,6 +19,11 @@ private:
 	bool endGame;
 
 	Player player;
+
+	std::vector<SwagBall> swagBalls;
+	float spawmTimerMax;
+	float spawmTimer;
+	int maxSwagBalls;
 
 	void initVariables();
 	void initWindow();
@@ -34,6 +41,7 @@ public:
 	const bool running() const;
 	void pollEvents();
 	
+	void spawmSwagBalls();
 	void update();
 	void render();
 };

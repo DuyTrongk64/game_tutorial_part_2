@@ -1,8 +1,12 @@
 #include "Game.h"
 
+
 void Game::initVariables()
 {
 	this->endGame = false;
+	this->spawmTimerMax = 10.f;
+	this->spawmTimer = this->spawmTimerMax;
+	this->maxSwagBalls = 10;
 }
 
 void Game::initWindow()
@@ -49,10 +53,26 @@ void Game::pollEvents()
 	}
 }
 
+void Game::spawmSwagBalls()
+{
+	//Timer
+	if (this->spawmTimer < this->spawmTimerMax)
+		this->spawmTimer += 1.f;
+	else
+	{
+		if(this->swagBalls.size() < this->maxSwagBalls)
+		{
+			this->swagBalls.push_back(SwagBall(*this->window));
+			this->spawmTimer = 0.f;
+		}
+	}
+}
+
 void Game::update()
 {
 	this->pollEvents();
 
+	this->spawmSwagBalls();
 	this->player.update(this->window);
 }
 
@@ -63,5 +83,9 @@ void Game::render()
 	//Renser stuff
 	this->player.render(this->window);
 
+	for (auto i :this->swagBalls)
+	{
+		i.render(*this->window);
+	}
 	this->window->display();
 }
